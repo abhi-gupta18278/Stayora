@@ -1,0 +1,125 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    padding-top: 56px; 
+  }
+.navbar{
+    height: 4rem;
+}
+.fa-compass{
+    font-size: 2rem;
+    color: #fe424d;
+}
+.nav-link{
+    color: #222222 !important;
+    font-weight: 600;
+}
+footer{
+    background-color: #ebebeb;
+}
+.ankerLink{
+    text-decoration: none !important;
+}
+/* card  */
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.3;
+    background-color: #ffffff9a;
+}
+/* star rating style */
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: 2rem;
+    gap: 0.2rem;
+  }
+
+  .star-rating input[type="radio"] {
+    display: none;
+  }
+
+  .star-rating label {
+    cursor: pointer;
+    color: #ddd;
+  }
+
+  .star-rating input[type="radio"]:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: gold;
+  }
+
+  .sticky-top-custombar{
+    z-index: 1030;
+  }
+
+/* icon section */
+.category-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.category-item {
+  min-width: 80px;
+  padding: 10px 5px;
+  flex-shrink: 0;
+  text-align: center;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.category-item:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.sticky-top-custom {
+  top: 56px; /* adjust as per navbar */
+  z-index: -1;
+}
+
+.category-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.toggle-label {
+  white-space: nowrap;
+}
+/* making responsive */
+@media (max-width: 768px) {
+  .category-item {
+    min-width: 60px;
+  }
+
+  .toggle-label {
+    font-size: 0.85rem;
+  }
+}
+/* toggle buttom */
+.sticky-top-custom {
+  top: 45px; 
+  z-index: 1030;
+}
+
+.tax-Info{
+  display: none;
+}
+.toggleTax {
+
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 20px ;
+}

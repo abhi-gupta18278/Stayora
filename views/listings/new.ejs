@@ -1,0 +1,70 @@
+<% layout('/layouts/boilerPlate.ejs') %>
+
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <h3 class="mb-4 text-center">Create a New Listing</h3>
+      <!-- For Add new listing..  form  -->
+      <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+        <!-- title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input id="title" name="listing[title]" type="text" class="form-control" placeholder="Enter title" required>
+          <div class="invalid-feedback">
+            Enter the valid Title
+          </div>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+
+        <!-- descriptions -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="listing[description]" class="form-control" rows="3" placeholder="Enter description" required></textarea>
+          <div class="invalid-feedback">
+            Please fill the description box
+          </div>
+        </div>
+        <!-- Image  -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Listing Image</label>
+          <input id="image" name="listing[image]" type="file" class="form-control" required>
+        </div>
+
+        <div class="row mb-3">
+        <!-- price of the listing -->
+
+          <div class="col">
+            <label for="price" class="form-label">Price (INR)</label>
+            <input id="price" name="listing[price]" type="number" class="form-control" placeholder="Enter price" required>
+            <div class="invalid-feedback">
+              enter the Valid number
+            </div>
+          </div>
+            <!-- location for new listing -->
+          <div class="col">
+            <label for="location" class="form-label">Location</label>
+            <input id="location" name="listing[location]" type="text" class="form-control" placeholder="Lucknow, UtterPradesh" required>
+            <div class="invalid-feedback">
+              Enter Your Location Name
+            </div>
+          </div>
+        </div>
+        <!-- country name -->
+        <div class="mb-4">
+          <label for="country" class="form-label">Country</label>
+          <input id="country" name="listing[country]" type="text" class="form-control" placeholder="Enter country" required>
+          <div class="invalid-feedback">
+            Enter Your Country
+          </div>
+        </div>
+        <!-- submit -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-danger">Add Listing</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

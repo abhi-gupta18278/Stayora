@@ -1,0 +1,62 @@
+<% layout('/layouts/boilerPlate.ejs') %>
+  <!-- sign  up form -->
+
+  <body class="bg-light">
+    <div class="container mt-5 mb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card shadow rounded-4">
+            <div class="card-body p-4">
+              <!-- sign up -->
+              <h2 class="mb-4 text-center">Sign Up</h2>
+
+              <form id="signupForm" class="needs-validation" novalidate action="/signup" method="POST">
+                <div class="mb-3">
+                  <!-- user name -->
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" id="username" name="username" class="form-control" required>
+                  <div class="invalid-feedback">Please enter a username.</div>
+                </div>
+                <!-- email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" name="email" class="form-control" required>
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <!-- password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Create Password</label>
+                  <input type="password" id="password" name="password" class="form-control" required minlength="6"
+                    autocomplete="current-password"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+\-]).{8,20}$" minlength="8" maxlength="20">
+                  <div class="invalid-feedback">Password must be at least 8 characters long and include at least one
+                    uppercase letter, one lowercase letter, one number, and one special character</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+              </form>
+              <!-- if user existing -->
+              <div class="mt-3 text-center">
+                <a href="/login">Already have an account? Log in</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const form = document.getElementById('signupForm');
+
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      })();
+    </script>
+
+  </body>

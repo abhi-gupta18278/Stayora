@@ -1,0 +1,36 @@
+<% layout('/layouts/boilerPlate.ejs') %>
+<!-- login form  -->
+  <body class="bg-light">
+    <div class="container mt-5 mb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card shadow rounded-4">
+            <div class="card-body p-4">
+                <!-- Login form  -->
+              <h2 class="mb-4 text-center">Sign In</h2>
+              <form id="loginForm" novalidate class="needs-validation" action="/login" method="POST">
+                <div class="mb-3">
+                  <!-- username -->
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" id="username" name="username" class="form-control" required>
+                  <div class="invalid-feedback">Please enter a username.</div>
+                </div>
+                <!-- password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" id="password" name="password" class="form-control" required minlength="6">
+                  <div class="invalid-feedback">Password must be at least 6 characters.</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+              </form>
+              <!-- if user did not register  -->
+              <div class="mt-3 text-center">
+                <a href="/signup">Create New Account! SignUp</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </body>
