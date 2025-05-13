@@ -28,7 +28,9 @@ const dbUrl = process.env.ATLASDB_URl;
 
 //create the connection with the database
 async function main() {
-  await mongoose.connect("mongodb+srv://abhi-wanderlust:KhDJtE5ex9sKLGkR@cluster0.xohlqfx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+  await mongoose.connect(
+    "mongodb+srv://abhi-wanderlust:KhDJtE5ex9sKLGkR@cluster0.xohlqfx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  );
 }
 main()
   .then(() => console.log("data successfully save"))
@@ -60,7 +62,7 @@ store.on("error", (error) => {
 
 // for session
 let sessionOption = {
-    store,
+  store,
   secret: process.env.SECRET_CODE,
   resave: false,
   saveUninitialized: true,
