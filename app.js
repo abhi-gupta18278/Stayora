@@ -22,7 +22,7 @@ const User = require("./models/user.js");
 const listingRouter = require("./router/listing.js");
 const reviewRouter = require("./router/review.js");
 const userRouter = require("./router/user.js");
-const { connect } = require("http2");
+// const { connect } = require("http2");
 
 const dbUrl = process.env.ATLASDB_URl;
 
@@ -33,7 +33,7 @@ async function main() {
   );
 }
 main()
-  .then(() => console.log("data successfully save"))
+  .then(() => console.log("dataBase successfully connected"))
   .catch((err) => {
     console.log(err);
   });
