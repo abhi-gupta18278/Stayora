@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top mb-3 border-bottom">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top border-bottom">
     <div class="container">
-        <!-- Brand Icon Only -->
+        <!-- Brand Icon -->
         <a class="navbar-brand text-primary fs-4" href="/listings">
             <i class="fa-solid fa-compass"></i>
         </a>
@@ -11,33 +11,32 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navbar Content -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Collapsible Content -->
+        <div class="collapse navbar-collapse bg-white p-3 p-md-0" id="navbarSupportedContent">
             <!-- Left Nav Buttons -->
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0 text-center text-md-start">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary rounded-pill px-3 mx-1" href="/listings">Explore</a>
+                    <a class="nav-link btn btn-outline-primary rounded-pill px-3 mx-1 my-1" href="/listings">Explore</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary rounded-pill px-3 mx-1" href="/listings/new">Listing Your Home</a>
+                    <a class="nav-link btn btn-outline-primary rounded-pill px-3 mx-1 my-1" href="/listings/new">Listing Your Home</a>
                 </li>
             </ul>
 
-            <!-- Right Side: Search + Auth Buttons -->
-            <form class="d-flex align-items-center" role="search">
-                <input class="form-control rounded-pill me-2" type="search" placeholder="Search..." aria-label="Search">
-                <button class="btn btn-outline-success rounded-pill me-3" type="submit">Search</button>
+            <!-- Search Bar -->
+            <form class="d-flex flex-column flex-md-row align-items-center mb-2 mb-md-0" role="search">
+                <input class="form-control rounded-pill me-md-2 mb-2 mb-md-0" type="search" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-outline-success rounded-pill me-md-3" type="submit">Search</button>
             </form>
 
             <!-- Auth Buttons -->
-            <div class="d-flex">
-
-                <% if(!currentUser) { %>
-                    <a href="/login" class="btn btn-outline-secondary rounded-pill me-2">Login/SignUp</a>
-                    <% } %>
-                        <% if(currentUser) { %>
-                            <a href="/logout" class="btn btn-outline-secondary rounded-pill me-2">Logout</a>
-                            <% } %>
+            <div class="d-flex flex-column flex-md-row text-center">
+                <% if (!currentUser) { %>
+                    <a href="/login" class="btn btn-outline-secondary rounded-pill me-0 me-md-2 mb-2 mb-md-0">Login/SignUp</a>
+                <% } %>
+                <% if (currentUser) { %>
+                    <a href="/logout" class="btn btn-outline-secondary rounded-pill me-0 me-md-2 mb-2 mb-md-0">Logout</a>
+                <% } %>
             </div>
         </div>
     </div>

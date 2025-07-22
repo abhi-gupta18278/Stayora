@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerPlate.ejs') %>
 
-<!-- show all listing item the page -->
+  <!-- show all listing item the page -->
   <div class="container mt-5 mb-4">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6">
@@ -23,8 +23,8 @@
               <li class="list-group-item">
                 <%= listing.description %>
               </li>
-                <li class="list-group-item "  ><strong>Price:</strong> ₹ <%= listing.price.toLocaleString('en-IN') %>
-                </li>
+              <li class="list-group-item "><strong>Price:</strong> ₹ <%= listing.price.toLocaleString('en-IN') %>
+              </li>
               <li class="list-group-item"><strong>Location:</strong>
                 <%= listing.location %> , <%= listing.country %>
               </li>
@@ -42,91 +42,118 @@
           </div>
         </div>
       </div>
+
       <hr>
-      <!-- if you not owner of listing then you did not show the comment section -->
-        <% if(currentUser && currentUser._id.equals(listing.owner._id)) {%>
-        <h1>Please Gives Your Review</h1>
-        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="p-4 border rounded shadow-sm bg-light">
-          <div class="mb-3">
-            <label class="form-label d-block">Rating</label>
-            <div class="star-rating">
-              <input type="radio" name="review[rating]" id="star5" value="5"><label for="star5">★</label>
-              <input type="radio" name="review[rating]" id="star4" value="4"><label for="star4">★</label>
-              <input type="radio" name="review[rating]" id="star3" value="3"><label for="star3">★</label>
-              <input type="radio" name="review[rating]" id="star2" value="2"><label for="star2">★</label>
-              <input type="radio" name="review[rating]" id="star1" value="1"><label for="star1">★</label>
-            </div>
-          </div>
+      <!-- booking Button -->
+      <% if (!currentUser) { %>
+        <!-- Not Logged In -->
+        <button onclick="alert('Thanks for showing interest in booking! Please login')"
+          class="btn btn-outline-primary rounded-pill px-3 py-1 my-4 d-inline-block w-50">
+          Book Now
+        </button>
+        <% } else { %>
+          <!-- Logged In -->
+          <button onclick="alert('Thanks for showing interest in booking!')"
+            class="btn btn-outline-primary rounded-pill px-3 py-1 my-4 d-inline-block w-50">
+            Book Now
+          </button>
+          <% } %>
 
-          <div class="mb-3">
-            <label for="comment" class="form-label">Comment</label>
-            <textarea class="form-control" id="comment" name="review[comment]" rows="4"
-              placeholder="Comment your review" required></textarea>
-          </div>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <% } %>
-        
-        <!-- if  thier are no reveiw than did not show  -->
-        <% if(listing.reviews.length >0) { %>
+      <!-- Review -->
+      <h1>Please Gives Your Review</h1>
+      <form action="/listings/<%= listing._id %>/reviews" method="POST" class="p-4 border rounded shadow-sm bg-light">
+        <div class="mb-3">
+          <label class="form-label d-block">Rating</label>
+          <div class="star-rating">
+            <input type="radio" name="review[rating]" id="star5" value="5"><label for="star5">★</label>
+            <input type="radio" name="review[rating]" id="star4" value="4"><label for="star4">★</label>
+            <input type="radio" name="review[rating]" id="star3" value="3"><label for="star3">★</label>
+            <input type="radio" name="review[rating]" id="star2" value="2"><label for="star2">★</label>
+            <input type="radio" name="review[rating]" id="star1" value="1"><label for="star1">★</label>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea class="form-control" id="comment" name="review[comment]" rows="4" placeholder="Comment your review"
+            required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <!-- if  thier are no reveiw than did not show  -->
+      <% if(listing.reviews.length>0) { %>
         <div class="container my-5">
           <div class="card shadow-sm border-0 rounded-4">
             <div class="card-body">
               <h2 class="card-title mb-4 text-primary">All Reviews</h2>
-        
+
               <div class="row row-cols-1 g-4">
                 <% for (let review of listing.reviews) { %>
                   <div class="col">
                     <div class="card border-0 shadow-sm p-3 rounded-4 bg-light-subtle">
                       <div class="d-flex align-items-start gap-3">
-                        
+
                         <!-- Avatar -->
-                        <img src="<%= review.author.profileImage || 'https://i.pravatar.cc/40?img=' + Math.floor(Math.random() * 70) %>" 
-                             alt="User" class="rounded-circle border" width="50" height="50" />
-        
+                        <img
+                          src="<%= review.author.profileImage || 'https://i.pravatar.cc/40?img=' + Math.floor(Math.random() * 70) %>"
+                          alt="User" class="rounded-circle border" width="50" height="50" />
+
                         <!-- Comment Content -->
                         <div class="flex-grow-1">
                           <div class="d-flex justify-content-between">
                             <div>
-                              <p class="mb-1 fw-medium"><%= review.comment %></p>
+                              <p class="mb-1 fw-medium">
+                                <%= listing.owner.username %>
+                              </p>
+
+                              <p class="mb-1 fw-medium">
+                                <%= review.comment %>
+                              </p>
                               <small class="text-warning fw-semibold">
                                 <%= review.rating %> ★
                               </small>
                             </div>
-        
+
                             <!-- Delete Button if you are owner of the reveiw -->
-                            <% if (currentUser && review.author._id.toString() === currentUser._id.toString()) { %>
-                              <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                            <% if (currentUser && review.author._id.toString()===currentUser._id.toString()) { %>
+                              <form method="POST"
+                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                                 <button type="submit" class="btn btn-sm btn-outline-danger"
                                   onclick="return confirm('Delete this review?');">
                                   Delete
                                 </button>
                               </form>
-                            <% } %>
+                              <% } %>
                           </div>
-        
+
                           <!-- Review Date -->
                           <div>
                             <small class="text-muted">
-                              Posted on <%= new Date(review.createdAt).toLocaleDateString('en-US', {
-                                  year: 'numeric', month: 'short', day: 'numeric'
-                              }) %>
+                              Posted on <%= new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric' ,
+                                month: 'short' , day: 'numeric' }) %>
                             </small>
                           </div>
                         </div>
-        
+
                       </div>
                     </div>
                   </div>
-                <% } %>
+                  <% } %>
 
               </div>
             </div>
           </div>
         </div>
         <% } %>
-        
-        
-      
-  </div>
+
+
+
+
+
+
+
+
+
+    </div>
