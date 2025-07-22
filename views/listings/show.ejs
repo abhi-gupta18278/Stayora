@@ -60,93 +60,95 @@
           <% } %>
 
 
-      <!-- Review -->
-      <h1>Please Gives Your Review</h1>
-      <form action="/listings/<%= listing._id %>/reviews" method="POST" class="p-4 border rounded shadow-sm bg-light">
-        <div class="mb-3">
-          <label class="form-label d-block">Rating</label>
-          <div class="star-rating">
-            <input type="radio" name="review[rating]" id="star5" value="5"><label for="star5">★</label>
-            <input type="radio" name="review[rating]" id="star4" value="4"><label for="star4">★</label>
-            <input type="radio" name="review[rating]" id="star3" value="3"><label for="star3">★</label>
-            <input type="radio" name="review[rating]" id="star2" value="2"><label for="star2">★</label>
-            <input type="radio" name="review[rating]" id="star1" value="1"><label for="star1">★</label>
-          </div>
-        </div>
+            <!-- Review -->
+            <h1>Please Gives Your Review</h1>
+            <form action="/listings/<%= listing._id %>/reviews" method="POST"
+              class="p-4 border rounded shadow-sm bg-light">
+              <div class="mb-3">
+                <label class="form-label d-block">Rating</label>
+                <div class="star-rating">
+                  <input type="radio" name="review[rating]" id="star5" value="5"><label for="star5">★</label>
+                  <input type="radio" name="review[rating]" id="star4" value="4"><label for="star4">★</label>
+                  <input type="radio" name="review[rating]" id="star3" value="3"><label for="star3">★</label>
+                  <input type="radio" name="review[rating]" id="star2" value="2"><label for="star2">★</label>
+                  <input type="radio" name="review[rating]" id="star1" value="1"><label for="star1">★</label>
+                </div>
+              </div>
 
-        <div class="mb-3">
-          <label for="comment" class="form-label">Comment</label>
-          <textarea class="form-control" id="comment" name="review[comment]" rows="4" placeholder="Comment your review"
-            required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+              <div class="mb-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea class="form-control" id="comment" name="review[comment]" rows="4"
+                  placeholder="Comment your review" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
-      <!-- if  thier are no reveiw than did not show  -->
-      <% if(listing.reviews.length>0) { %>
-        <div class="container my-5">
-          <div class="card shadow-sm border-0 rounded-4">
-            <div class="card-body">
-              <h2 class="card-title mb-4 text-primary">All Reviews</h2>
+            <!-- if  thier are no reveiw than did not show  -->
+            <% if(listing.reviews.length>0) { %>
+              <div class="container my-5">
+                <div class="card shadow-sm border-0 rounded-4">
+                  <div class="card-body">
+                    <h2 class="card-title mb-4 text-primary">All Reviews</h2>
 
-              <div class="row row-cols-1 g-4">
-                <% for (let review of listing.reviews) { %>
-                  <div class="col">
-                    <div class="card border-0 shadow-sm p-3 rounded-4 bg-light-subtle">
-                      <div class="d-flex align-items-start gap-3">
+                    <div class="row row-cols-1 g-4">
+                      <% for (let review of listing.reviews) { %>
+                        <div class="col">
+                          <div class="card border-0 shadow-sm p-3 rounded-4 bg-light-subtle">
+                            <div class="d-flex align-items-start gap-3">
 
-                        <!-- Avatar -->
-                        <img
-                          src="<%= review.author.profileImage || 'https://i.pravatar.cc/40?img=' + Math.floor(Math.random() * 70) %>"
-                          alt="User" class="rounded-circle border" width="50" height="50" />
+                              <!-- Avatar -->
+                              <img
+                                src="<%= review.author.profileImage || 'https://i.pravatar.cc/40?img=' + Math.floor(Math.random() * 70) %>"
+                                alt="User" class="rounded-circle border" width="50" height="50" />
 
-                        <!-- Comment Content -->
-                        <div class="flex-grow-1">
-                          <div class="d-flex justify-content-between">
-                            <div>
-                              <p class="mb-1 fw-medium">
-                                <%= listing.owner.username %>
-                              </p>
+                              <!-- Comment Content -->
+                              <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                  <div>
+                                    <% if (currentUser) { %>
+                                      <p class="mb-1 fw-medium">
+                                        <%= currentUser.username %>
+                                      </p>
 
-                              <p class="mb-1 fw-medium">
-                                <%= review.comment %>
-                              </p>
-                              <small class="text-warning fw-semibold">
-                                <%= review.rating %> ★
-                              </small>
+                                      <p class="mb-1 fw-medium">
+                                        <%= review.comment %>
+                                      </p>
+                                      <small class="text-warning fw-semibold">
+                                        <%= review.rating %> ★
+                                      </small>
+                                  </div>
+
+                                  <!-- Delete Button if you are owner of the reveiw -->
+                                  <% if (currentUser && review.author._id.toString()===currentUser._id.toString()) { %>
+                                    <form method="POST"
+                                      action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                      <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Delete this review?');">
+                                        Delete
+                                      </button>
+                                    </form>
+                                    <% } %>
+                                </div>
+
+                                <!-- Review Date -->
+                                <div>
+                                  <small class="text-muted">
+                                    Posted on <%= new Date(review.createdAt).toLocaleDateString('en-US', {
+                                      year: 'numeric' , month: 'short' , day: 'numeric' }) %>
+                                  </small>
+                                </div>
+                              </div>
+
                             </div>
-
-                            <!-- Delete Button if you are owner of the reveiw -->
-                            <% if (currentUser && review.author._id.toString()===currentUser._id.toString()) { %>
-                              <form method="POST"
-                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                <button type="submit" class="btn btn-sm btn-outline-danger"
-                                  onclick="return confirm('Delete this review?');">
-                                  Delete
-                                </button>
-                              </form>
-                              <% } %>
-                          </div>
-
-                          <!-- Review Date -->
-                          <div>
-                            <small class="text-muted">
-                              Posted on <%= new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric' ,
-                                month: 'short' , day: 'numeric' }) %>
-                            </small>
                           </div>
                         </div>
+                        <% } %>
 
-                      </div>
                     </div>
                   </div>
-                  <% } %>
-
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <% } %>
+              <% } %>
 
 
 
